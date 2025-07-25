@@ -62,285 +62,121 @@ const OrderCard = ({ order, onClick }) => {
 
   return (
     <Card 
-      sx={{ 
+      sx={{
         height: 200,
         width: 280,
         display: 'flex',
         flexDirection: 'column',
         borderRadius: 2,
-        border: '1px solid #e2e8f0',
+        border: '1.5px solid #e2e8f0',
         cursor: 'pointer',
         backgroundColor: '#ffffff',
         overflow: 'hidden',
         boxShadow: '0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)',
-        transition: 'all 0.2s ease-in-out',
+        transition: 'border-color 0.2s cubic-bezier(.4,0,.2,1)',
+        p: 2,
+        gap: 1.2,
         '&:hover': {
-          boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
-          transform: 'translateY(-2px)',
-        }
+          border: '1.5px solid #2563eb',
+        },
       }}
       onClick={onClick}
     >
-      <CardContent sx={{ flexGrow: 1, p: 2.5 }}>
-        {/* Header with Order Number and Status */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2 }}>
-          <Typography 
-            variant="h6" 
-            sx={{ 
-              fontWeight: 700,
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1 }}>
+        <Typography
+          variant="subtitle2"
+          sx={{
+            fontWeight: 700,
+            fontSize: '0.95rem',
+            maxWidth: 90,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            flex: 1,
+          }}
+        >
+          {order.order_number}
+        </Typography>
+        <Chip
+          label={order.status.replace('_', ' ')}
+          size="small"
+          sx={{
+            fontSize: '0.7rem',
+            height: 22,
+            backgroundColor: '#e0e7ff',
+            color: '#3730a3',
+            fontWeight: 600,
+            mr: 0.5,
+            maxWidth: 90,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        />
+        <Chip
+          label={order.trip_type || order.tripType || 'Single Trip'}
+          size="small"
+          sx={{
+            fontSize: '0.7rem',
+            height: 22,
+            backgroundColor: '#d1fae5',
+            color: '#047857',
+            fontWeight: 600,
+            maxWidth: 90,
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+          }}
+        />
+      </Box>
+      <Divider sx={{ mb: 1, mt: 0.5 }} />
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: '#64748b', fontWeight: 600, fontSize: '0.72rem', minWidth: 80 }}
+          >
+            MATERIAL TYPE
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              fontSize: '0.82rem',
               color: '#1e293b',
-              fontSize: '1rem',
-              lineHeight: 1.2,
+              fontWeight: 500,
+              maxWidth: 120,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap'
-            }}
-          >
-            #{order.order_number}
-          </Typography>
-          <Box sx={{ display: 'flex', gap: 0.75 }}>
-            <Chip 
-              label={order.status || 'open'} 
-              size="small"
-              sx={{
-                backgroundColor: statusStyle.bg,
-                color: statusStyle.color,
-                border: `1px solid ${statusStyle.border}`,
-                fontWeight: 600,
-                fontSize: '0.75rem',
-                height: 20,
-                '& .MuiChip-label': {
-                  px: 1,
-                }
-              }}
-            />
-            <Chip 
-              label={tripInfo.type} 
-              size="small"
-              sx={{
-                backgroundColor: transportStyle.bg,
-                color: transportStyle.color,
-                border: `1px solid ${transportStyle.border}`,
-                fontWeight: 600,
-                fontSize: '0.75rem',
-                height: 20,
-                '& .MuiChip-label': {
-                  px: 1,
-                }
-              }}
-            />
-          </Box>
-        </Box>
-
-        <Divider sx={{ mb: 2, opacity: 0.3 }} />
-
-        {/* Material Information */}
-        <Box sx={{ mb: 1.5 }}>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#64748b',
-              mb: 0.5,
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              fontWeight: 600
-            }}
-          >
-            Material Type
-          </Typography>
-          <Typography 
-            variant="body1" 
-            sx={{ 
-              color: '#1e293b',
-              fontWeight: 600,
-              fontSize: '0.875rem',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
             }}
           >
             {order.material_type}
           </Typography>
         </Box>
-
-        {/* Weight Information */}
-        <Box sx={{ mb: 1.5 }}>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#64748b',
-              mb: 0.5,
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              fontWeight: 600
-            }}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Typography
+            variant="caption"
+            sx={{ color: '#64748b', fontWeight: 600, fontSize: '0.72rem', minWidth: 80 }}
           >
-            Weight
+            WEIGHT
           </Typography>
-          <Typography 
-            variant="body1" 
-            sx={{ 
+          <Typography
+            variant="body2"
+            sx={{
+              fontSize: '0.82rem',
               color: '#1e293b',
-              fontWeight: 600,
-              fontSize: '0.875rem',
+              fontWeight: 500,
+              maxWidth: 120,
               overflow: 'hidden',
               textOverflow: 'ellipsis',
-              whiteSpace: 'nowrap'
+              whiteSpace: 'nowrap',
             }}
           >
             {order.material_weight} {order.weight_unit}
           </Typography>
         </Box>
-
-        {/* Source and Destination */}
-        <Box sx={{ mb: 1.5 }}>
-          <Typography 
-            variant="body2" 
-            sx={{ 
-              color: '#64748b',
-              mb: 0.5,
-              fontSize: '0.75rem',
-              textTransform: 'uppercase',
-              letterSpacing: '0.5px',
-              fontWeight: 600
-            }}
-          >
-            Route
-          </Typography>
-          {order.transport_type === 'single' ? (
-            <>
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  color: '#1e293b',
-                  fontWeight: 600,
-                  fontSize: '0.8rem',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap',
-                  mb: 0.25
-                }}
-              >
-                From: {order.source_factory || 'N/A'}
-              </Typography>
-              <Typography 
-                variant="body1" 
-                sx={{ 
-                  color: '#1e293b',
-                  fontWeight: 600,
-                  fontSize: '0.8rem',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  whiteSpace: 'nowrap'
-                }}
-              >
-                To: {order.dest_factories ? (Array.isArray(order.dest_factories) ? order.dest_factories[0] : order.dest_factories) : 'N/A'}
-              </Typography>
-            </>
-          ) : (
-            <Typography 
-              variant="body1" 
-              sx={{ 
-                color: '#1e293b',
-                fontWeight: 600,
-                fontSize: '0.8rem',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {tripInfo.stageCount || 0} stage{tripInfo.stageCount > 1 ? 's' : ''}
-            </Typography>
-          )}
-        </Box>
-
-        {/* Vehicle Information */}
-        {order.trucks && (
-          <Box sx={{ mb: 1.5 }}>
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#64748b',
-                mb: 0.5,
-                fontSize: '0.75rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                fontWeight: 600
-              }}
-            >
-              Trucks
-            </Typography>
-            <Typography 
-              variant="body1" 
-              sx={{ 
-                color: '#1e293b',
-                fontWeight: 600,
-                fontSize: '0.8rem',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {order.trucks}
-            </Typography>
-          </Box>
-        )}
-
-        {/* Date Information */}
-        {order.created_at && (
-          <Box>
-            <Typography 
-              variant="body2" 
-              sx={{ 
-                color: '#64748b',
-                mb: 0.5,
-                fontSize: '0.75rem',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-                fontWeight: 600
-              }}
-            >
-              Created
-            </Typography>
-            <Typography 
-              variant="body1" 
-              sx={{ 
-                color: '#1e293b',
-                fontWeight: 600,
-                fontSize: '0.8rem',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap'
-              }}
-            >
-              {new Date(order.created_at).toLocaleDateString()}
-            </Typography>
-          </Box>
-        )}
-      </CardContent>
-
-      <CardActions sx={{ p: 2, pt: 0 }}>
-        <Button
-          variant="contained"
-          startIcon={<VisibilityIcon />}
-          fullWidth
-          sx={{
-            borderRadius: 1.5,
-            textTransform: 'none',
-            fontWeight: 600,
-            py: 1,
-            fontSize: '0.875rem',
-            backgroundColor: '#2563eb',
-            '&:hover': {
-              backgroundColor: '#1d4ed8',
-            }
-          }}
-        >
-          View Details
-        </Button>
-      </CardActions>
+        {/* Add similar ellipsis and alignment for other fields as needed */}
+      </Box>
     </Card>
   );
 };
